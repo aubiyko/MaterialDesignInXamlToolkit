@@ -308,15 +308,15 @@ namespace MaterialDesignThemes.Wpf
         private static void RemoveSpellingSuggestions(ContextMenu menu)
         {
             foreach (FrameworkElement item in (from item in menu.Items.OfType<FrameworkElement>()
-                                     where ReferenceEquals(item.Tag, typeof(Spelling))
-                                     select item).ToList())
+                                               where ReferenceEquals(item.Tag, typeof(Spelling))
+                                               select item).ToList())
             {
                 menu.Items.Remove(item);
             }
         }
 
         /// <summary>
-        /// Controls the visbility of the clear button.
+        /// Controls the visibility of the clear button.
         /// </summary>
         public static readonly DependencyProperty HasClearButtonProperty = DependencyProperty.RegisterAttached(
             "HasClearButton", typeof(bool), typeof(TextFieldAssist), new PropertyMetadata(false, HasClearButtonChanged));
@@ -383,6 +383,32 @@ namespace MaterialDesignThemes.Wpf
             return (string)element.GetValue(SuffixTextProperty);
         }
 
+        /// <summary>
+        /// Controls the visibility of the character counter.
+        /// </summary>
+        public static readonly DependencyProperty CharacterCounterVisibilityProperty = DependencyProperty.RegisterAttached(
+            "CharacterCounterVisibility", typeof(CharacterCounterVisibility), typeof(TextFieldAssist), new PropertyMetadata(CharacterCounterVisibility.Collapsed));
+
+        /// <summary>
+        /// Sets the visibility of the character counter.
+        /// </summary>
+        /// <param name="element">The <see cref="TextBoxBase"/>d element.</param>
+        /// <param name="value">The value.</param>
+        public static void SetCharacterCounterVisibility(DependencyObject element, string value)
+        {
+            element.SetValue(CharacterCounterVisibilityProperty, value);
+        }
+
+        /// <summary>
+        /// Gets the visibility of the character counter.
+        /// </summary>
+        /// <param name="element">The <see cref="TextBoxBase"/>d element.</param>
+        /// <returns>Character counters <see cref="CharacterCounterVisibility"/>.</returns>
+        public static CharacterCounterVisibility GetCharacterCounterVisibility(DependencyObject element)
+        {
+            return (CharacterCounterVisibility)element.GetValue(CharacterCounterVisibilityProperty);
+        }
+
         #region Methods
 
         /// <summary>
@@ -428,7 +454,7 @@ namespace MaterialDesignThemes.Wpf
                 ApplyTextBoxViewMargin(textBox, GetTextBoxViewMargin(textBox));
             };
         }
-
+        
         #endregion
     }
 }
